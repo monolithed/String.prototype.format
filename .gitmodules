@@ -1,0 +1,3 @@
+[submodule "tests/Suitest"]
+	path = tests/Suitest
+	url = git@github.com:monolithed/Suitest.git
