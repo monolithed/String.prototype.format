@@ -1,14 +1,25 @@
+// -*- coding: utf-8; indent-tabs-mode: nil; tab-width: 4; c-basic-offset: 4; -*-
+
 /*
-	Original fork:
-	https://github.com/deleted/string-format
-
-	This project attempts to implement python-style string formatting, as documented here:
-	http://docs.python.org/2/library/string.html#format-string-syntax
-
-	The format spec part is not complete
+* String.prototype.format
+*
+* @author: Alexander Guinness
+* @requires Array.prototype.forEach
+*
+* @version: 0.0.1
+* @license: MIT
+*
+* Original author:
+*	https://github.com/davidchambers/string-format
+*
+* Original fork:
+*	https://github.com/deleted/string-format
+*
+* This project attempts to implement python-style string formatting, as documented here:
+* http://docs.python.org/2/library/string.html#format-string-syntax
+*
+* NOTE: The format spec part is not complete yet
 */
-
-//require('./String.sprintf.js');
 
 (function() {
 	var apply, format, lookup, resolve,
@@ -24,7 +35,7 @@
 		index = 0;
 		explicit = implicit = false;
 
-		message = 'cannot switch from {} to {} numbering'.format();
+		message = 'Cannot switch from {} to {} numbering'.format();
 
 		return this.replace(/([{}])\1|[{](.*?)(?:!([^:]+?)?)?(?::(.+?))?[}]/g,
 			function(match, literal, key, transformer, format_spec) {
@@ -215,6 +226,6 @@
 	};
 
 	format.transformers = format.transformers || {};
-	format.version = '0.2.1';
+	format.version = '0.0.1';
 
 }).call(this);
