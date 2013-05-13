@@ -9,7 +9,8 @@ git clone --recursive git@github.com:monolithed/String.prototype.format.git
 ## Tests
 
 ```
-node tests/run
+cd tests
+node run
 ```
 
 ## Info

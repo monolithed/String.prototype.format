@@ -119,33 +119,34 @@
 
 	// Not complete yet
 	apply = function(value, format_spec) {
+		var pattern = /([^{}](?=[<>=^]))?([<>=^])?([-+\x20])?(\#)?(0)?(\d+)?(,)?(?:\.(\d+))?([bcdeEfFgGnosxX%])?/,
+			chunk = format_spec.match(pattern).slice(1),
+			chunks = {};
+
+		format_spec = ['fill', 'align', 'sign', 'hash', 'zeropad', 'width', 'comma', 'precision', 'type'];
+
+		var i = format_spec.length;
+
+		while (i--) {
+			chunks[format_spec[i]] = chunk[i];
+		}
+
+		if (chunks.zeropad) {
+			chunks.fill  = chunks.fill  || '0';
+			chunks.align = chunks.align || '=';
+		}
+
+		if (!chunks.align) {
+			chunks.align = '>';
+		}
+
+		if (!chunks.fill) {
+			chunks.fill = ' ';
+		}
 
 		var numeric;
-		var pattern = /([^{}](?=[<>=^]))?([<>=^])?([-+\x20])?(\#)?(0)?(\d+)?(,)?(?:\.(\d+))?([bcdeEfFgGnosxX%])?/;
-		var token = format_spec.match(pattern).slice(1);
 
-		var tokens = {};
-
-		['fill', 'align', 'sign', 'hash', 'zeropad', 'width', 'comma', 'precision', 'type']
-			.forEach(function(value, index) {
-				tokens[value] = token[index];
-			})
-		;
-
-		if (tokens.zeropad) {
-			tokens.fill  = tokens.fill  || '0';
-			tokens.align = tokens.align || '=';
-		}
-
-		if (!tokens.align) {
-			tokens.align = '>';
-		}
-
-		if (!tokens.fill) {
-			tokens.fill = ' ';
-		}
-
-		switch (tokens.type) {
+		switch (chunks.type) {
 			case 'b':
 			case 'c':
 			case 'd':
@@ -167,8 +168,8 @@
 				numeric = true;
 				value = parseFloat(value);
 
-				if (tokens.precision) {
-					value = value.toFixed(tokens.precision | 0);
+				if (chunks.precision) {
+					value = value.toFixed(chunks.precision | 0);
 				}
 				else {
 					value += '';
@@ -180,39 +181,39 @@
 				value += '';
 		}
 
-		if (numeric && tokens.sign) {
-			if (tokens.sign === '+' || tokens.sign === ' ') {
+		if (numeric && chunks.sign) {
+			if (chunks.sign === '+' || chunks.sign === ' ') {
 				if (value[0] !== '-')
-					value = tokens.sign + value;
+					value = chunks.sign + value;
 			}
 		}
 
-		if (tokens.fill) {
+		if (chunks.fill) {
 			value += '';
 
-			while (value.length < tokens.width | 0) {
-				switch (tokens.align) {
+			while (value.length < chunks.width | 0) {
+				switch (chunks.align) {
 					 // Forces the padding to be placed after
 					 // the sign (if any) but before the digits.
 					case '=':
 						if (~'+- '.indexOf(value[0])) {
-							value = value.charAt(0) + tokens.fill + value.slice(1);
+							value = value.charAt(0) + chunks.fill + value.slice(1);
 						}
 						else {
-							value = tokens.fill + value;
+							value = chunks.fill + value;
 						}
 						break;
 
 					// Forces the field to be left-aligned within
 					// the available space (this is the default for most objects).
 					case '<':
-						value = value + tokens.fill;
+						value = value + chunks.fill;
 						break;
 
 					// Forces the field to be right-aligned within
 					// the available space (this is the default for numbers).
 					case '>':
-						value = tokens.fill + value;
+						value = chunks.fill + value;
 						break;
 
 					case '^':
