@@ -228,9 +228,5 @@ void function () {
 
 	format.transformers = format.transformers || {};
 
-}.call(this);\n
-	try {
-		module.exports = String.prototype.format;
-	}
-	catch (error) {}
+}.call(this);
 
