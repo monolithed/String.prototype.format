@@ -14,6 +14,12 @@ is a sequence of characters beginning with `{` and ending with `}`.
 npm install string_format
 ```
 
+## Usage
+
+```js
+require('string_format');
+```
+
 
 ### string.format(value1, value2, ..., valueN)
 
