@@ -6,7 +6,7 @@
 * @author: Alexander Guinness
 * @requires Array.prototype.forEach
 *
-* @version: 0.0.1
+* @version: 0.0.2
 * @license: MIT
 *
 * Original author:
@@ -82,7 +82,7 @@ void function () {
 	};
 
 
-	lookup = function(object, key) {
+	lookup = function (object, key) {
 		if (!/^(\d+)([.\[\(]|$)/.test(key)) {
 			key = '0.' + key;
 		}

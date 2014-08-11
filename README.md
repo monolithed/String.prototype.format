@@ -14,6 +14,7 @@ is a sequence of characters beginning with `{` and ending with `}`.
 npm install string_format
 ```
 
+
 ## Usage
 
 ```js
@@ -172,7 +173,7 @@ greet('Steve', 1)
 ## Tests
 
 ```
-./configure
+npm test
 ```
 
 ## Info

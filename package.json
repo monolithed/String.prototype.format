@@ -1,6 +1,6 @@
 {
 	"name"       : "string_format",
-	"version"    : "0.0.1",
+	"version"    : "0.0.2",
 	"author"     : "Alexander Guinness <monolithed@gmail.com>",
 	"description": "string_format is a small JavaScript utility which adds a `format` method to strings",
 
@@ -19,7 +19,7 @@
 	},
 
 	"scripts": {
-		"install": "./configure"
+		"test": "./configure"
 	},
 
 	"engines": {
