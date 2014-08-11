@@ -6,7 +6,7 @@
 * @author: Alexander Guinness
 * @requires Array.prototype.forEach
 *
-* @version: 0.0.2
+* @version: 0.0.3
 * @license: MIT
 *
 * Original author:
@@ -119,7 +119,7 @@ void function () {
 
 	// Not complete yet
 	apply = function (value, format_spec) {
-		var pattern = /([^{}](?=[<>=^]))?([<>=^])?([-+\x20])?(\#)?(0)?(\d+)?(,)?(?:\.(\d+))?([bcdeEfFgGnosxX%])?/,
+		var pattern = /([^{}](?=[<>=^]))?([<>=^])?([-+ ])?(\#)?(0)?(\d+)?(,)?(?:\.(\d+))?([bcdeEfFgGnosxX%])?/,
 			chunk = format_spec.match(pattern).slice(1),
 			chunks = {};
 
@@ -227,6 +227,10 @@ void function () {
 	};
 
 	format.transformers = format.transformers || {};
-	format.version = '0.0.1';
 
-}.call(this);
+}.call(this);\n
+	try {
+		module.exports = String.prototype.format;
+	}
+	catch (error) {}
+
