@@ -1,13 +1,14 @@
 {
 	"name"       : "string_format",
-	"version"    : "0.0.3",
+	"version"    : "0.0.4",
 	"author"     : "Alexander Guinness <monolithed@gmail.com>",
+
 	"description": "string_format is a small JavaScript utility which adds a `format` method to strings",
-
 	"keywords": [ "string", "sprintf", "print", "python", "format", "string format" ],
-
 	"homepage"   : "https://github.com/monolithed/string_format",
 	"man"        : "README.md",
+
+	"main": "index",
 
 	"repository": {
 		"type": "git",
