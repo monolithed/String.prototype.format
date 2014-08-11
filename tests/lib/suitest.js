@@ -3,13 +3,13 @@
  * @date: 23.04.13 / 14:51
  */
 
-require('../../String.prototype.format');
-require('./Suitest/suitest.js');
+require('../../string_format');
+require('suitest');
 
-var suitest = new Suitest;
+suitest = new Suitest;
 
-suitest.suite = function(name, pattern, values) {
-	return this.test(name, function(test) {
+suitest.suite = function (name, pattern, values) {
+	return this.test(name, function (test) {
 		test.exec.call(test, pattern, values)
 			.done();
 	});

@@ -1,0 +1,9 @@
+#! /usr/bin/env node
+
+var fs = require('fs');
+
+var tests = './tests/cases/';
+
+fs.readdirSync(tests).forEach(function (file) {
+	require(tests + file);
+});

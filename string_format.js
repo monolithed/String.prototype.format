@@ -1,7 +1,7 @@
 // -*- coding: utf-8; indent-tabs-mode: nil; tab-width: 4; c-basic-offset: 4; -*-
 
 /*
-* String.prototype.format
+* string_format
 *
 * @author: Alexander Guinness
 * @requires Array.prototype.forEach
@@ -21,10 +21,10 @@
 * NOTE: The format spec part is not complete yet
 */
 
-(function() {
+void function () {
 	var apply, format, lookup, resolve,
 
-	format = String.prototype.format = function() {
+	format = String.prototype.format = function () {
 		var args = Array.prototype.slice.call(arguments, 0);
 
 		if (!args.length)
@@ -98,7 +98,7 @@
 	};
 
 
-	resolve = function(data, key) {
+	resolve = function (data, key) {
 		var value = data[key];
 		var object = null;
 
@@ -118,7 +118,7 @@
 	};
 
 	// Not complete yet
-	apply = function(value, format_spec) {
+	apply = function (value, format_spec) {
 		var pattern = /([^{}](?=[<>=^]))?([<>=^])?([-+\x20])?(\#)?(0)?(\d+)?(,)?(?:\.(\d+))?([bcdeEfFgGnosxX%])?/,
 			chunk = format_spec.match(pattern).slice(1),
 			chunks = {};
@@ -218,7 +218,7 @@
 
 					case '^':
 					case ',':
-						throw new Error("Not implemented");
+						throw new Error('Not implemented');
 				}
 			}
 		}
@@ -229,4 +229,4 @@
 	format.transformers = format.transformers || {};
 	format.version = '0.0.1';
 
-}).call(this);
+}.call(this);
