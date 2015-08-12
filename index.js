@@ -21,34 +21,33 @@
 * NOTE: The format spec part is not complete yet
 */
 
-void function () {
-	var apply, format, lookup, resolve,
+;void function () {
+	var apply, lookup, resolve,
 
 	format = String.prototype.format = function () {
 		var args = Array.prototype.slice.call(arguments, 0);
 
-		if (!args.length)
+		if (!args.length) {
 			return this;
+		}
 
-		var explicit, index, implicit, message,
-
-		index = 0;
-		explicit = implicit = false;
-
-		message = 'Cannot switch from {} to {} numbering'.format();
+		var explicit = false,
+			implicit = false,
+			index = 0
 
 		return this.replace(/([{}])\1|[{](.*?)(?:!([^:]+?)?)?(?::(.+?))?[}]/g,
 			function(match, literal, key, transformer, format_spec) {
 				var transformers, value;
 
-				if (literal)
+				if (literal) {
 					return literal;
+				}
 
 				if (key.length) {
 					explicit = true;
 
 					if (implicit) {
-						throw new Error(message('implicit', 'explicit'));
+						throw new Error('Cannot switch from implicit to explicit numbering');
 					}
 
 					value = lookup(args, key);
@@ -58,7 +57,7 @@ void function () {
 					implicit = true;
 
 					if (explicit) {
-						throw new Error(message('explicit', 'implicit'));
+						throw new Error('Cannot switch from explicit to implicit numbering');
 					}
 
 					value = args[index++];
@@ -81,7 +80,6 @@ void function () {
 		);
 	};
 
-
 	lookup = function (object, key) {
 		if (!/^(\d+)([.\[\(]|$)/.test(key)) {
 			key = '0.' + key;
@@ -97,10 +95,9 @@ void function () {
 		return resolve(object, key);
 	};
 
-
 	resolve = function (data, key) {
-		var value = data[key];
-		var object = null;
+		var value = data[key],
+			object = null;
 
 		if (typeof value === 'function') {
 			return value.call(data);
@@ -117,13 +114,23 @@ void function () {
 		}
 	};
 
-	// Not complete yet
+	// Not completed yet
 	apply = function (value, format_spec) {
 		var pattern = /([^{}](?=[<>=^]))?([<>=^])?([-+ ])?(\#)?(0)?(\d+)?(,)?(?:\.(\d+))?([bcdeEfFgGnosxX%])?/,
 			chunk = format_spec.match(pattern).slice(1),
 			chunks = {};
 
-		format_spec = ['fill', 'align', 'sign', 'hash', 'zeropad', 'width', 'comma', 'precision', 'type'];
+		format_spec = [
+			'fill',
+			'align',
+			'sign',
+			'hash',
+			'zeropad',
+			'width',
+			'comma',
+			'precision',
+			'type'
+		];
 
 		var i = format_spec.length;
 
@@ -227,6 +234,5 @@ void function () {
 	};
 
 	format.transformers = format.transformers || {};
-
-}.call(this);
+}();
 

@@ -1,4 +1,4 @@
-Copyright 2012, Alexander Guinness <monolithed@gmail.com>
+Copyright 2012, Alexander Abashkin <monolithed@gmail.com>
  
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
