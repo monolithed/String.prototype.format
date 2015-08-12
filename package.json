@@ -8,7 +8,7 @@
 	"homepage": "https://github.com/monolithed/string_format",
 	"man"     : "README.md",
 
-	"main": "index",
+	"main": "index.js",
 
 	"repository": {
 		"type": "git",
