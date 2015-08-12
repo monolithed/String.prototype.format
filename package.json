@@ -1,6 +1,6 @@
 {
 	"name"   : "string_format",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"author" : "Alexander Abashkin <monolithed@gmail.com>",
 
 	"description": "String.prototype.format",
