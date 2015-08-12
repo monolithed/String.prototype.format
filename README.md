@@ -37,7 +37,7 @@ require('string_format');
 ```
 
 
-### string.format(value1, value2, ..., valueN)
+### General
 
 Placeholders may contain numbers which refer to positional arguments:
 
@@ -50,7 +50,7 @@ Unmatched placeholders produce no output:
 
 ```js
 '{0}, you have {1} unread message{2}'.format('Steve', 1);
-// 'Steve, you have 1 unread message'
+// 'Steve, you have 1 unread messageundefined'
 ```
 
 A format string may reference a positional argument multiple times:
@@ -63,7 +63,7 @@ A format string may reference a positional argument multiple times:
 Positional arguments may be referenced implicitly:
 
 ```js
-'{}, you have {} unread message{}'.format('Steve', 1);
+'{}, you have {} unread message'.format('Steve', 1);
 // 'Steve, you have 1 unread message'
 ```
 
@@ -123,6 +123,190 @@ var me = {
 
 '{name} was born in {dob.getFullYear}'.format(me);
 // 'David was born in 2015'
+
+'{pop}'.format(['one', 'two', 'three']);
+// three
+```
+
+### Arrays
+
+```js
+'{0[1]}'.format([0, 1]); 
+// 1
+
+'{0["0"]}'.format([1])); 
+// 1
+
+'{0[1]} {1[1]}'.format([0, 1], [0, 2]));
+// 1 2
+
+
+'{0[1][1][1]}'.format([0, [0, [2, [3]]]]);
+// 3
+
+'{0[1]()}'.format([0, function () {
+    return 1;
+}])); 
+// 1
+
+'{0[1](1)[1][1]}'.format([0, function (value) {
+    return [0, [0, value]];
+}]);
+// 1
+
+'{0[1](1)[1][1]}:{1[1][1][1]}:{2}:{3.method[1]}'.format([0, function (value) {
+   return [0, [0, value]];
+}], 
+[0, [0, [2, [3]]]], 2, {
+   method: [0, [1]]
+});
+// 1:3:2:1
+```
+
+### Escaping
+
+```js
+'{{'.format(null); 
+// {
+
+
+'{{}}'.format(null);
+// {}
+
+'{{{0}}}'.format(123);
+// {123}
+```
+
+### Functions
+
+```js
+'{0}'.format(function () {
+   return 1;
+});
+// 1
+
+{0()}'.format(function () {
+   return 1;
+});
+// 1
+
+'{0()}{1()}'.format(
+   function () {
+       return 1;
+   },
+   function () {
+       return 1;
+   });
+// 11
+
+'{0(1)}'.format(function (value) {
+   return value;
+});
+// 1
+
+'{0()()}'.format(function () {
+   return function () {
+       return 1;
+   };
+});
+// 1
+
+'{0(1)(2)[1][1]}:{1}'.format(function (a) {
+   return function (b) {
+       return [0, [1, a + b]];
+   };
+}, 1);
+
+// 3:1
+```
+
+### Methods
+
+```js
+'{0.method[1]}'.format({ method: [0, 1] });
+// 1
+
+'{method(1)}'.format({
+   method: function (x) {
+       return x;
+   }
+});
+// 1
+
+'{object.method(1, 2)}'.format({
+   object: {
+       method: function (a, b) {
+           return a + b;
+       }
+   }
+});
+
+// 3
+
+'{0.method[0]()}'.format({
+   method: [function () {
+       return 1;
+   }]
+});
+// 1
+
+'{0.method[0](1)}'.format({
+   method: [function (value) {
+       return value;
+   }]
+});
+// 1
+
+'{object.method[1]} + {object2.method[1]} = 2'.format({
+    object : {
+        method: [0, 1]
+    },
+    object2: {
+        method: [0, 1]
+    }
+}, 2);
+// 1 + 1 = 2
+
+
+'{0.method(1, 2)}'.format({
+   method: function (a, b) {
+       return a + b;
+   }
+});
+// 3
+
+
+'{0.method(1, 2)(3, 4)}'.format({
+   method: function (a, b) {
+       return function (c, d) {
+           return a + b + c + d;
+       };
+   }
+});
+
+// 10
+
+'{0.method(0)(1)[0][1](1, 2)}'.format({
+   method: function (a) {
+       return function (b) {
+           return [[0, function (c, d) {
+               return a + b + c + d;
+           }]];
+       };
+   }
+});
+
+// 4
+```
+
+### Undefined values
+
+```js
+'{0}'.format(null);
+// null
+
+'{0}'.format(undefined);
+// undefined
 ```
 
 ## Tests
