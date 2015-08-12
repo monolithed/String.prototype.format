@@ -42,7 +42,7 @@ require('string_format');
 Placeholders may contain numbers which refer to positional arguments:
 
 ```js
-'{0}, you have {1} unread message'.format('Holly', 2, 's');
+'{0}, you have {1} unread message{2}'.format('Holly', 2, 's');
 // 'Holly, you have 2 unread messages'
 ```
 
